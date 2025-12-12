@@ -1,0 +1,9 @@
+Mulitmeter/*.cache/
+Mulitmeter/*.runs/
+Mulitmeter/*.sim/
+Mulitmeter/*.hw/
+Mulitmeter/*.srcs/
+Mulitmeter/*.ip_user_files/
+Mulitmeter/vivado*
+Mulitmeter/*.log
+Mulitmeter/*tb.sv

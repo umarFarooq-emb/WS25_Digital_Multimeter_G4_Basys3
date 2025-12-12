@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="top_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="top_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="12,500,785.14754 ns"></ZoomStartTime>
+      <ZoomEndTime time="12,500,944.67467 ns"></ZoomEndTime>
+      <Cursor1Time time="15,001,010.00000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="339"></NameColumnWidth>
+      <ValueColumnWidth column_width="145"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="52" />
+   <wvobject fp_name="/top_tb/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/btnC" type="logic">
+      <obj_property name="ElementShortName">btnC</obj_property>
+      <obj_property name="ObjectShortName">btnC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/btnU" type="logic">
+      <obj_property name="ElementShortName">btnU</obj_property>
+      <obj_property name="ObjectShortName">btnU</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/btnD" type="logic">
+      <obj_property name="ElementShortName">btnD</obj_property>
+      <obj_property name="ObjectShortName">btnD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/btnR" type="logic">
+      <obj_property name="ElementShortName">btnR</obj_property>
+      <obj_property name="ObjectShortName">btnR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/btnL" type="logic">
+      <obj_property name="ElementShortName">btnL</obj_property>
+      <obj_property name="ObjectShortName">btnL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/sw" type="array">
+      <obj_property name="ElementShortName">sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/JA" type="array">
+      <obj_property name="ElementShortName">JA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">JA[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/btnC" type="logic">
+      <obj_property name="ElementShortName">btnC</obj_property>
+      <obj_property name="ObjectShortName">btnC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/btnU" type="logic">
+      <obj_property name="ElementShortName">btnU</obj_property>
+      <obj_property name="ObjectShortName">btnU</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/btnD" type="logic">
+      <obj_property name="ElementShortName">btnD</obj_property>
+      <obj_property name="ObjectShortName">btnD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/btnR" type="logic">
+      <obj_property name="ElementShortName">btnR</obj_property>
+      <obj_property name="ObjectShortName">btnR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/btnL" type="logic">
+      <obj_property name="ElementShortName">btnL</obj_property>
+      <obj_property name="ObjectShortName">btnL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/sw" type="array">
+      <obj_property name="ElementShortName">sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/RsTx" type="logic">
+      <obj_property name="ElementShortName">RsTx</obj_property>
+      <obj_property name="ObjectShortName">RsTx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/RsRx" type="logic">
+      <obj_property name="ElementShortName">RsRx</obj_property>
+      <obj_property name="ObjectShortName">RsRx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/led" type="array">
+      <obj_property name="ElementShortName">led[15:0]</obj_property>
+      <obj_property name="ObjectShortName">led[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/seg" type="array">
+      <obj_property name="ElementShortName">seg[6:0]</obj_property>
+      <obj_property name="ObjectShortName">seg[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/an" type="array">
+      <obj_property name="ElementShortName">an[3:0]</obj_property>
+      <obj_property name="ObjectShortName">an[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/dp" type="logic">
+      <obj_property name="ElementShortName">dp</obj_property>
+      <obj_property name="ObjectShortName">dp</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider30">
+      <obj_property name="label">AVG</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_avg_data0/din_i" type="array">
+      <obj_property name="ElementShortName">din_i[11:0]</obj_property>
+      <obj_property name="ObjectShortName">din_i[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_avg_data0/din_update_i" type="logic">
+      <obj_property name="ElementShortName">din_update_i</obj_property>
+      <obj_property name="ObjectShortName">din_update_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_avg_data0/avg_clr_i" type="logic">
+      <obj_property name="ElementShortName">avg_clr_i</obj_property>
+      <obj_property name="ObjectShortName">avg_clr_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_avg_data0/dout_o" type="array">
+      <obj_property name="ElementShortName">dout_o[11:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_o[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_avg_data0/dout_update_o" type="logic">
+      <obj_property name="ElementShortName">dout_update_o</obj_property>
+      <obj_property name="ObjectShortName">dout_update_o</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider36">
+      <obj_property name="label">rms</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/din_update_i" type="logic">
+      <obj_property name="ElementShortName">din_update_i</obj_property>
+      <obj_property name="ObjectShortName">din_update_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/din_i" type="array">
+      <obj_property name="ElementShortName">din_i[11:0]</obj_property>
+      <obj_property name="ObjectShortName">din_i[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/din_squared_update_ff" type="logic">
+      <obj_property name="ElementShortName">din_squared_update_ff</obj_property>
+      <obj_property name="ObjectShortName">din_squared_update_ff</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/din_squared_ff" type="array">
+      <obj_property name="ElementShortName">din_squared_ff[23:0]</obj_property>
+      <obj_property name="ObjectShortName">din_squared_ff[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_avg_move/dout_o" type="array">
+      <obj_property name="ElementShortName">dout_o[23:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_o[23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_avg_move/dout_update_o" type="logic">
+      <obj_property name="ElementShortName">dout_update_o</obj_property>
+      <obj_property name="ObjectShortName">dout_update_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_avg_move/buffer_wr_ptr_ff" type="array">
+      <obj_property name="ElementShortName">buffer_wr_ptr_ff[7:0]</obj_property>
+      <obj_property name="ObjectShortName">buffer_wr_ptr_ff[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_sqrt/fsm_state_ff" type="array">
+      <obj_property name="ElementShortName">fsm_state_ff[1:0]</obj_property>
+      <obj_property name="ObjectShortName">fsm_state_ff[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_sqrt/dout_update_o" type="logic">
+      <obj_property name="ElementShortName">dout_update_o</obj_property>
+      <obj_property name="ObjectShortName">dout_update_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_rms/u_sqrt/dout_o" type="array">
+      <obj_property name="ElementShortName">dout_o[11:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_o[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/busy_o" type="logic">
+      <obj_property name="ElementShortName">busy_o</obj_property>
+      <obj_property name="ObjectShortName">busy_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/txd_o" type="logic">
+      <obj_property name="ElementShortName">txd_o</obj_property>
+      <obj_property name="ObjectShortName">txd_o</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/char_cnt_ff" type="array">
+      <obj_property name="ElementShortName">char_cnt_ff[3:0]</obj_property>
+      <obj_property name="ObjectShortName">char_cnt_ff[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/char_array_ff" type="array">
+      <obj_property name="ElementShortName">char_array_ff[103:0]</obj_property>
+      <obj_property name="ObjectShortName">char_array_ff[103:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/uart_digit_data" type="array">
+      <obj_property name="ElementShortName">uart_digit_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">uart_digit_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/uart_send" type="logic">
+      <obj_property name="ElementShortName">uart_send</obj_property>
+      <obj_property name="ObjectShortName">uart_send</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/uart_ready" type="logic">
+      <obj_property name="ElementShortName">uart_ready</obj_property>
+      <obj_property name="ObjectShortName">uart_ready</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/u_uart_tx_ctrl/DATA" type="array">
+      <obj_property name="ElementShortName">DATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/result_sel" type="array">
+      <obj_property name="ElementShortName">result_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">result_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/result_ff" type="array">
+      <obj_property name="ElementShortName">result_ff[13:0]</obj_property>
+      <obj_property name="ObjectShortName">result_ff[13:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/result_update_ff" type="logic">
+      <obj_property name="ElementShortName">result_update_ff</obj_property>
+      <obj_property name="ObjectShortName">result_update_ff</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/char_array" type="array">
+      <obj_property name="ElementShortName">char_array[103:0]</obj_property>
+      <obj_property name="ObjectShortName">char_array[103:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/char_cnt_ff" type="array">
+      <obj_property name="ElementShortName">char_cnt_ff[3:0]</obj_property>
+      <obj_property name="ObjectShortName">char_cnt_ff[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/top_tb/u_dut/u_uart_top/char_array_update_i" type="logic">
+      <obj_property name="ElementShortName">char_array_update_i</obj_property>
+      <obj_property name="ObjectShortName">char_array_update_i</obj_property>
+   </wvobject>
+</wave_config>
