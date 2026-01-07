@@ -48,14 +48,45 @@ module uart_top #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  
-
+  parameter MAX_COUNT = 14'd10417; //Takt durch baudrate
+  logic [14:0] internal_counter = '0;
+  logic [CHAR_NR-1:0] register;
+  logic cnt_uart;
   
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
-  assign busy_o = '0;
-  assign txd_o  = '0;
+  always_ff @(posedge clk or negedge rst_n) 
+  begin
+    if (!rst_n)
+    begin
+      internal_counter  <= '0;
+      cnt_uart <= 0;
+    end
+    else if(internal_counter <= MAX_COUNT)
+    begin
+        internal_counter <= internal_counter +1;
+        cnt_uart <= 0;
+    end
+    else
+    begin
+        cnt_uart <= 1;
+        internal_counter <= '0;
+    end
+  end
+  //was muss noch gemacht werden: transfer of one char und übertrage logik des auslesens des char arrays (= buffer)
+  always_ff @(posedge clk or negedge rst_n) 
+  begin
+    if (!rst_n)
+    begin
+      register  <= '0;
+    end
+    else if(cnt_uart)
+    begin
+        txd_o <= register[0];
+        register <= {0,register[CHAR_NR-2:1]};
+    end
+  end
   
   
    
