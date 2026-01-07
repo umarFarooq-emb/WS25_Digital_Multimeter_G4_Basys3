@@ -49,11 +49,59 @@ module ste_rms_top #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  
+  logic [BUF_BIT_W-1:0][DATA_W-1:0] shift_reg;
+  logic [2*DATA_W+BUF_BIT_W-1:0] mean_square, mean_square_intern;
+  int i;
+  logic intern_enable, busy;
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
-   assign dout_o        = '0;
-   assign dout_update_o = '0;
+  always_ff @(posedge clk or negedge rst_n)
+  begin
+    if (~rst_n || clr_i)
+    begin
+        for (i = 0; i < BUF_BIT_W; i++)
+        begin
+            shift_reg[i] <= {DATA_W{1'b0}};
+            mean_square <= '0;
+            mean_square_intern <= '0;
+            intern_enable <= 0;
+            busy <= 0;
+        end
+    end
+    else if (din_update_i && ~busy)
+    begin
+        shift_reg <= {shift_reg[BUF_BIT_W-2:0], din_i};
+        mean_square <= (shift_reg[0]*shift_reg[0] + shift_reg[1]*shift_reg[1] + shift_reg[2]*shift_reg[2] + shift_reg[3]*shift_reg[3] + shift_reg[4]*shift_reg[4] + shift_reg[5]*shift_reg[5] + shift_reg[6]*shift_reg[6] + din_i*din_i)/BUF_BIT_W;
+    end
+    if(mean_square == mean_square_intern)
+        begin
+            intern_enable <= 0;
+        end
+        else
+        begin
+            busy <= 1;
+            intern_enable <= 1;
+            mean_square_intern <= mean_square;
+        end
+    if(dout_update_o == 1)
+    begin
+        busy <= 0;
+    end
+ end
+
+    //--------- Calculation of square root 
+     square_root #(
+        .DATA_W(DATA_W),
+        .BUF_BIT_W(BUF_BIT_W)
+    ) sqrt_inst (
+        .clk(clk),
+        .rst_n(rst_n),
+        .din_i(mean_square),
+        .din_update_i(intern_enable),
+        .clr(clr_i),
+        .dout_o(dout_o),
+        .dout_update_o(dout_update_o)
+    );
 endmodule
 `default_nettype wire  
