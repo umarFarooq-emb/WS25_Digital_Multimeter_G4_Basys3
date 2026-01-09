@@ -67,12 +67,11 @@ module ste_led_bar #(
         led_o <= 0;
     end
     else if (din_update_i) begin
-        //clear output register
-        led_o <= 0;
         // scale it to the be linear 
         level <= (din_i * LED_NR) / (DATA_MAX + 1);
-        for (int i = 0; i <= level; i++) begin
-            led_o[i] <= 1'b1;
+        
+        for (int i = 0; i < LED_NR; i++) begin
+            led_o[i] <= (i <= level);
         end
     end
      
