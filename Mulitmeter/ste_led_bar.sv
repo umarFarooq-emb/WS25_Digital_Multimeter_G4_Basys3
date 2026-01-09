@@ -49,26 +49,17 @@ module ste_led_bar #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  //use the LOG(base2) of the bit width to determine the level bits needed 
-  //to scale the input and output bit correctly
-  parameter int LEVEL_BITS = $clog2(LED_NR + 1);
-  logic [11:0] level;
-  logic [LEVEL_BITS-1:0] din_shifted;
+  // make it big enough for multiplication later on
+  logic [DATA_W+3:0] level;
     
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
-  // divide my input signal to use only the top 3 bits --> 8 states for my 8 LEDs
- always_comb begin
-    if (DATA_W > LEVEL_BITS)
-        assign din_shifted = din_i >> (DATA_W - LEVEL_BITS);
-    else
-        assign din_shifted = din_i;
- end
- 
- always_comb begin
-    level = (din_shifted * LED_NR) / (DATA_MAX + 1);
-end
+
+  // scale it to the be linear 
+  //always_comb begin
+  //  level = (din_i * LED_NR) / (DATA_MAX + 1);
+  //end
     
  
   always_ff @(posedge clk) begin
@@ -76,7 +67,10 @@ end
         led_o <= 0;
     end
     else if (din_update_i) begin
+        //clear output register
         led_o <= 0;
+        // scale it to the be linear 
+        level <= (din_i * LED_NR) / (DATA_MAX + 1);
         for (int i = 0; i <= level; i++) begin
             led_o[i] <= 1'b1;
         end
