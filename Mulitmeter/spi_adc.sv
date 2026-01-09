@@ -60,7 +60,6 @@ module spi_adc(
             sck_count <= 0;
             data0_shift <= 0;
             spi_active <= 0;
-            data0_shift <= 0;
             data1_shift <= 0;
             edging <= 0;
             
