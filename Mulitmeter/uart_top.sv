@@ -48,9 +48,14 @@ module uart_top #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  parameter MAX_COUNT = 14'd10417; //Takt durch baudrate
-  logic [14:0] internal_counter = '0;
-  logic [CHAR_NR-1:0] register;
+  //------Real Uart Counter Value
+//  localparam  MAX_COUNT = 14'd10416; //Takt durch baudrate
+  //------Simulation Counter Value
+  localparam  MAX_COUNT = 14'd5; //Takt durch baudrate
+  logic [13:0] internal_counter = '0;
+  logic [(CHAR_NR*8)-1:0]  char_array_internal;
+  int intern_itterater, array_itterater;
+  logic [7:0] uart_reg;
   logic cnt_uart;
   
   // -------------------------------------------------------------------------
@@ -74,21 +79,120 @@ module uart_top #(
         internal_counter <= '0;
     end
   end
-  //was muss noch gemacht werden: transfer of one char und übertrage logik des auslesens des char arrays (= buffer)
+  
   always_ff @(posedge clk or negedge rst_n) 
   begin
-    if (!rst_n)
+    if (~rst_n || clr_i)
     begin
-      register  <= '0;
+      char_array_internal <= '0;
+      uart_reg  <= '0;
+      intern_itterater <= 0;
+      array_itterater <= 0;
+      txd_o <= 1;
+      busy_o <= 0;
     end
-    else if(cnt_uart)
+    else if(busy_o)
     begin
-        txd_o <= register[0];
-        register <= {0,register[CHAR_NR-2:1]};
+    //------------------Getakted auf Uart Clock
+        if(cnt_uart && array_itterater != CHAR_NR)
+        begin
+            case (intern_itterater) 
+              0 : begin
+                  txd_o <= 0; //start bit
+                  uart_reg <= char_array_internal[(CHAR_NR*8):(CHAR_NR-1)*8];
+                  char_array_internal <= {char_array_internal[((CHAR_NR-1)*8)-1:0], 8'b0};
+                end
+              9 : begin
+                    txd_o <= 1; //Stop bit
+                    array_itterater <= array_itterater + 1;
+                end
+              default: begin
+                    txd_o <= uart_reg[0];
+                    uart_reg <= {1'b0,uart_reg[7:1]};
+                end
+            endcase
+            if (intern_itterater == 9)
+            begin
+              intern_itterater <= 0;
+            end 
+            else
+            begin
+              intern_itterater <= intern_itterater + 1;
+            end
+        end 
+        if(array_itterater == CHAR_NR)
+        begin
+            busy_o <= 0;
+        end 
+    end 
+    //------------------Getakted auf Uart Clock
+    else if(char_array_update_i)
+    begin
+        char_array_internal <= char_array_i;
+        busy_o <= 1;
+        array_itterater <= 0;
+        
+    end
+  end
+endmodule
+`default_nettype wire 
+
+
+
+
+/*
+  always_ff @(posedge clk or negedge rst_n) 
+  begin
+    if (~rst_n || clr_i)
+    begin
+      char_array_internal <= '0;
+    end
+    else if(char_array_update_i && ~busy_o)
+    begin
+        char_array_internal <= char_array_i;
+        busy_o <= 1;
     end
   end
   
-  
-   
-endmodule
-`default_nettype wire  
+  always_ff @(posedge clk or negedge rst_n) 
+  begin
+    if (~rst_n || clr_i)
+    begin
+      uart_reg  <= '0;
+      intern_itterater <= 0;
+      array_itterater <= 0;
+      txd_o <= 1;
+      busy_o <= 0;
+    end
+    else if(busy_o && cnt_uart)
+    begin
+        case (intern_itterater) 
+          0 : begin
+              txd_o <= 0; //start bit
+              uart_reg <= char_array_internal[7:0];
+              char_array_internal <= {8'b0, char_array_internal[(CHAR_NR*8)-1:8]};
+            end
+          9 : begin
+                txd_o <= 1; //Stop bit
+                array_itterater <= array_itterater + 1;
+            end
+          default: begin
+                txd_o <= uart_reg[0];
+                uart_reg <= {1'b0,uart_reg[7:1]};
+            end
+        endcase
+        if(intern_itterater < 9)
+        begin
+            intern_itterater <= intern_itterater + 1;
+        end
+        else
+        begin
+            intern_itterater <= 0;
+        end
+        if(array_itterater == CHAR_NR-1)
+        begin
+            busy_o <= 0;
+        end 
+    end
+  end
+*/
