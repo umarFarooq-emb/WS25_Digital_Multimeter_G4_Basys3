@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="spi_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="spi_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="2431500000fs"></ZoomStartTime>
+      <ZoomEndTime time="3186000001fs"></ZoomEndTime>
+      <Cursor1Time time="2635000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="71"></NameColumnWidth>
+      <ValueColumnWidth column_width="58"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="5" />
+   <wvobject type="divider" fp_name="divider31">
+      <obj_property name="label">Input Signals</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="group29" type="group">
+      <obj_property name="label">Input</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/spi_tb/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/enable" type="logic">
+         <obj_property name="ElementShortName">enable</obj_property>
+         <obj_property name="ObjectShortName">enable</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/data_update" type="logic">
+         <obj_property name="ElementShortName">data_update</obj_property>
+         <obj_property name="ObjectShortName">data_update</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/miso[0]" type="logic">
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+         <obj_property name="label">Miso [0]</obj_property>
+         <obj_property name="CellHeight">37</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider30">
+      <obj_property name="label">Generated Signals</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_tb/data_o0" type="array">
+      <obj_property name="ElementShortName">data_o0[11:0]</obj_property>
+      <obj_property name="ObjectShortName">data_o0[11:0]</obj_property>
+      <obj_property name="WaveformStyle">STYLE_ANALOG</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+      <obj_property name="CellHeight">27</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="group22" type="group">
+      <obj_property name="label">SPI</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/spi_tb/spi_ck" type="logic">
+         <obj_property name="ElementShortName">spi_ck</obj_property>
+         <obj_property name="ObjectShortName">spi_ck</obj_property>
+         <obj_property name="CellHeight">31</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/cs_no" type="logic">
+         <obj_property name="ElementShortName">cs_no</obj_property>
+         <obj_property name="ObjectShortName">cs_no</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/dut/sck_count" type="array">
+         <obj_property name="ElementShortName">sck_count[4:0]</obj_property>
+         <obj_property name="ObjectShortName">sck_count[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/dut/data0_shift" type="array">
+         <obj_property name="ElementShortName">data0_shift[11:0]</obj_property>
+         <obj_property name="ObjectShortName">data0_shift[11:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/spi_tb/dut/data1_shift" type="array">
+         <obj_property name="ElementShortName">data1_shift[11:0]</obj_property>
+         <obj_property name="ObjectShortName">data1_shift[11:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
