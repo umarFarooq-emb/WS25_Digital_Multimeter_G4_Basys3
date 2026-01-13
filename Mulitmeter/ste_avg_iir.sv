@@ -64,11 +64,11 @@ module ste_avg_iir #(
    
   always_ff@(posedge clk or negedge rst_n)
   begin
+    dout_update_o = 1'b0;
     if (~rst_n)
     begin
         dout_o <= 0;
         dout_z <= 0;
-        dout_update_o <= 0;
         acc<=0;
     end
     else if (avg_clr_i) 
@@ -79,6 +79,7 @@ module ste_avg_iir #(
         begin
             acc <= din_i * a + dout_z * b;
             dout_o <= acc >> FRAC;
+            dout_update_o = 1'b1;
         end
         else
             dout_o <= din_i;
