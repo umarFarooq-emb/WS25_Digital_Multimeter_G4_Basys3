@@ -50,10 +50,48 @@ module ste_avg_iir #(
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
-
+//  logic [DATA_W-1:0] din_z;
+  logic [DATA_W-1:0] dout_z;
+  logic [2*DATA_W-1:0] acc;
  
-  assign dout_o         = '0;
-  assign dout_update_o  = '0;
+ 
+  logic [5:0] FRAC = DATA_W - 1;
   
+  logic [DATA_W-1:0] ONE = (1 << FRAC);
+  logic [DATA_W-1:0] a =  ONE/30;
+  logic [DATA_W-1:0]  b = ONE - a;  
+  
+   
+  always_ff@(posedge clk or negedge rst_n)
+  begin
+    dout_update_o = 1'b0;
+    if (~rst_n)
+    begin
+        dout_o <= 0;
+        dout_z <= 0;
+        acc<=0;
+    end
+    else if (avg_clr_i) 
+        dout_o <= 0;
+    else
+    begin          
+        if  (avg_en_i)
+        begin
+            acc <= din_i * a + dout_z * b;
+            dout_o <= acc >> FRAC;
+            dout_update_o = 1'b1;
+        end
+        else
+            dout_o <= din_i;
+    end
+    dout_z <= dout_o;      
+  end
+ 
+  //always dout_z        = dout_o;
+  //always dout_update_o = (dout_o != dout_z) ? 1:0;
+ 
+  //assign dout_o         = '0;
+  //assign dout_update_o  = '0;
+ 
 endmodule
 `default_nettype wire  
