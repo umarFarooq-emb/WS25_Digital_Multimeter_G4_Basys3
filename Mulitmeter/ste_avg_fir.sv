@@ -46,15 +46,33 @@ module ste_avg_fir #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
- 
-  
+ logic [4:0] i;
+ logic [DATA_W-1:0] fifo[7:0];
+ logic [DATA_W-1:0] sum;
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
+      always_ff@ (posedge clk) begin
+        dout_update_o <= 0;
+        if(~rst_n  || avg_clr_i)
+        begin
+            for (i=0; i<8; i++) fifo[i] = 0;
+        end
+        else if ( din_update_i ) 
+        begin
+            fifo <= { fifo[6:0],  din_i };
+            sum <= ( fifo[0] + fifo[1] + fifo[2] + fifo[3] + fifo[4] + fifo[5] + fifo[6] + fifo[7]);
+            //for (i=0; i<8; i++) sum <= sum + fifo[i];
+            
+            dout_o <= sum >> 3;
+            dout_update_o <= 1;
+        end
+    end
+    
+    
   
-  
-  assign dout_o         = '0;
-  assign dout_update_o  = '0;
+  //assign dout_o         = '0;
+  //assign dout_update_o  = '0;
   
 endmodule
 `default_nettype wire  
