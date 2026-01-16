@@ -40,7 +40,7 @@ module basys3_top(
   input  wire        clk,       // I; Clock input
   input  wire        btnC,      // I; Center button (reset)
 
-  inout  wire [7:0]  JA,        // IO; PMOD connector A (SPI pins)
+  (* MARK_DEBUG="TRUE" *) inout  wire [7:0]  JA,        // IO; PMOD connector A (SPI pins)
   inout  wire [7:0]  JB,        // IO; unused
   inout  wire [7:0]  JC,        // IO; unused
 
@@ -92,8 +92,8 @@ import mm_pkg::*;
   // instantiate LED bar; feed ADC channel0 directly
   wire [7:0] led_lo;
   ste_led_bar #(
-    .DATA_W   (4),
-    .DATA_MAX (1'hf),
+    .DATA_W   (12),
+    .DATA_MAX (12'hfff),
     .LED_NR   (8)
   ) u_ste_led_bar (
     .clk          (clk),
