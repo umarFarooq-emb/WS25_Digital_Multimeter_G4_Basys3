@@ -33,8 +33,8 @@
 // What is the limit in case I do a full calculation over the whole buffer after each sample
 `default_nettype none
 module ste_led_bar #(
-  parameter int DATA_W                 =  4, 
-  parameter logic[DATA_W-1:0] DATA_MAX =  1'hf,
+  parameter int DATA_W                 =  12, 
+  parameter logic[DATA_W-1:0] DATA_MAX =  12'hfff,
   parameter int LED_NR                 =  8     // 
 ) (
   input   wire                clk             , // I; System clock 
@@ -51,6 +51,7 @@ module ste_led_bar #(
   // -------------------------------------------------------------------------
   // make it big enough for multiplication later on
   logic [DATA_W+3:0] level;
+  logic [LED_NR-1:0] led_next;
     
   // -------------------------------------------------------------------------
   // Implementation
@@ -64,16 +65,19 @@ module ste_led_bar #(
  
   always_ff @(posedge clk) begin
     if (~rst_n || clr_i) begin
-        led_o <= 0;
+      led_o <= '0;
+      led_next <= '0;
+      level <= '0;
     end
     else if (din_update_i) begin
-        //clear output register
-        led_o <= 0;
-        // scale it to the be linear 
-        level <= (din_i * LED_NR) / (DATA_MAX + 1);
-        for (int i = 0; i < LED_NR; i++) begin
-            led_o[i] <= ( i <= level );
-        end
+      // scale it to be linear
+      level <= (din_i * LED_NR) / (DATA_MAX + 1);
+      // build next LED vector then update output once
+      led_next = '0;
+      for (int i = 0; i < LED_NR; i++) begin
+        led_next[i] = (i <= level);
+      end
+      led_o <= led_next;
     end
      
   end
