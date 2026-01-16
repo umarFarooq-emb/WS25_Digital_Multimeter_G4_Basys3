@@ -60,33 +60,42 @@ module ste_rms_top #(
   begin
     if (~rst_n || clr_i)
     begin
-        for (i = 0; i < BUF_BIT_W; i++)
-        begin
-            shift_reg[i] <= {DATA_W{1'b0}};
-            mean_square <= '0;
-            mean_square_intern <= '0;
-            intern_enable <= 0;
-            busy <= 0;
-        end
+        mean_square <= '0;
+        mean_square_intern <= '0;
+        intern_enable <= 0;
+        busy <= 0;
+        shift_reg <= '0;
     end
-    else if (din_update_i && ~busy)
+    else
     begin
-        shift_reg <= {shift_reg[BUF_BIT_W-2:0], din_i};
-        mean_square <= (shift_reg[0]*shift_reg[0] + shift_reg[1]*shift_reg[1] + shift_reg[2]*shift_reg[2] + shift_reg[3]*shift_reg[3] + shift_reg[4]*shift_reg[4] + shift_reg[5]*shift_reg[5] + shift_reg[6]*shift_reg[6] + din_i*din_i)/BUF_BIT_W;
-    end
-    if(mean_square == mean_square_intern)
+        if (din_update_i && ~busy)
         begin
-            intern_enable <= 0;
+            shift_reg <= {shift_reg[BUF_BIT_W-2:0], din_i};
+            mean_square <= (shift_reg[0]*shift_reg[0] + 
+                            shift_reg[1]*shift_reg[1] + 
+                            shift_reg[2]*shift_reg[2] + 
+                            shift_reg[3]*shift_reg[3] + 
+                            shift_reg[4]*shift_reg[4] + 
+                            shift_reg[5]*shift_reg[5] + 
+                            shift_reg[6]*shift_reg[6] + 
+                            din_i*din_i)/BUF_BIT_W;
         end
+        
+        if(mean_square == mean_square_intern)
+            begin
+                intern_enable <= 0;
+            end
         else
         begin
             busy <= 1;
             intern_enable <= 1;
             mean_square_intern <= mean_square;
         end
-    if(dout_update_o == 1)
-    begin
-        busy <= 0;
+        
+        if(dout_update_o == 1)
+        begin
+            busy <= 0;
+        end
     end
  end
 
