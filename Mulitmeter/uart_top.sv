@@ -99,8 +99,8 @@ module uart_top #(
             case (intern_itterater) 
               0 : begin
                   txd_o <= 0; //start bit
-                  uart_reg <= char_array_internal[(CHAR_NR*8):(CHAR_NR-1)*8];
-                  char_array_internal <= {char_array_internal[((CHAR_NR-1)*8)-1:0], 8'b0};
+                  uart_reg <= char_array_internal[(CHAR_NR*8)-1 : (CHAR_NR-1)*8];
+                  char_array_internal <= { char_array_internal[((CHAR_NR-1)*8)-1:0], 8'b0 };
                 end
               9 : begin
                     txd_o <= 1; //Stop bit
