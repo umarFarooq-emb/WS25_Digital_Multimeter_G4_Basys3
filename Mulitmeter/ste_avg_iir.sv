@@ -58,7 +58,7 @@ module ste_avg_iir #(
   logic [5:0] FRAC = DATA_W - 1;
   
   logic [DATA_W-1:0] ONE = (1 << FRAC);
-  logic [DATA_W-1:0] a =  ONE/30;
+  logic [DATA_W-1:0] a =  1000;
   logic [DATA_W-1:0]  b = ONE - a;  
   
    
