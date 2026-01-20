@@ -49,10 +49,9 @@ module ste_rms_top #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  logic [BUF_BIT_W-1:0][DATA_W-1:0] shift_reg;
-  logic [2*DATA_W+BUF_BIT_W-1:0] mean_square, mean_square_intern;
-  int i;
-  logic intern_enable, busy;
+  (* MARK_DEBUG="TRUE" *) logic [BUF_BIT_W-1:0][DATA_W-1:0] shift_reg;
+  (* MARK_DEBUG="TRUE" *) logic [2*DATA_W+BUF_BIT_W-1:0] mean_square, mean_square_intern;
+  (* MARK_DEBUG="TRUE" *) logic intern_enable, busy;
   // -------------------------------------------------------------------------
   // Implementation
   // -------------------------------------------------------------------------
