@@ -41,7 +41,7 @@ module uart_top #(
   input   wire                     char_array_update_i, // I; Array of input chars update 
   input   wire                     clr_i              , // I; Clear average data 
   output  logic                    busy_o             , // O; Transfer busy
-  output  logic                    txd_o                // O; Transmit data out 
+  (* MARK_DEBUG="TRUE" *) output  logic                    txd_o                // O; Transmit data out 
 );
   
 
@@ -49,9 +49,9 @@ module uart_top #(
   // Definition 
   // -------------------------------------------------------------------------
   //------Real Uart Counter Value
-//  localparam  MAX_COUNT = 14'd10416; //Takt durch baudrate
+  localparam  MAX_COUNT = 14'd10416; //Takt durch baudrate
   //------Simulation Counter Value
-  localparam  MAX_COUNT = 14'd5; //Takt durch baudrate
+  // localparam  MAX_COUNT = 14'd5; //Takt durch baudrate
   logic [13:0] internal_counter = '0;
   logic [(CHAR_NR*8)-1:0]  char_array_internal;
   int intern_itterater, array_itterater;
@@ -131,6 +131,7 @@ module uart_top #(
         char_array_internal <= char_array_i;
         busy_o <= 1;
         array_itterater <= 0;
+        intern_itterater <= 0;
         
     end
   end
