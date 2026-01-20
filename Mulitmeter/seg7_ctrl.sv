@@ -20,7 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 `default_nettype wire
-module seg7_ctrl(
+module seg7_ctrl#(
+  parameter int CLOCK_FREQ_HZ = 100_000_000, // system clock frequency
+  parameter int UPDATE_MS     = 300          // update interval in milliseconds
+) (
   input  wire         rst_n      , // I  1; Asynchronous active low reset
   input  wire         clk        , // I  1; clock 100MHz assumed for correct times 
   input  wire         en         , // I  1; Enable  
@@ -38,12 +41,21 @@ module seg7_ctrl(
   // Definition of Internal Signals
   // -------------------------------------------------------------------------
   
-logic [11:0] refresh_counter;
+// widen the refresh counter so digit multiplexing runs much slower
+logic [19:0] refresh_counter;
 logic [1:0] led_activate;
 logic [3:0] led_number;
 logic led_ghosting_cooldown;
 logic led_dimming_active;
 logic led_dimming;
+logic [1:0] led_activate_d;
+logic [4:0] ghost_cnt;
+// slow update latch: latch input value every UPDATE_MS milliseconds
+localparam int UPDATE_CYCLES = (CLOCK_FREQ_HZ/1000) * UPDATE_MS;
+logic [31:0] update_counter;
+logic [15:0] display_x;
+logic [3:0]  display_x_dp;
+
 
 
   // -------------------------------------------------------------------------
@@ -83,9 +95,46 @@ begin
     end    
 end
 
-assign led_activate = refresh_counter[11:10];
-assign led_ghosting_cooldown = refresh_counter[9:5] == 5'b0 || refresh_counter[9:5] == 5'b11111;
-assign led_dimming_active = refresh_counter[9:6] > dim_val;
+// Latch the BCD input at a slow rate (UPDATE_MS) so visible updates are slow
+always_ff @(posedge clk or negedge rst_n) begin
+  if (!rst_n) begin
+    update_counter <= 32'd0;
+    display_x      <= 16'd0;
+    display_x_dp   <= 4'd0;
+  end else if (en) begin
+    if (update_counter >= UPDATE_CYCLES-1) begin
+      update_counter <= 32'd0;
+      display_x      <= x;
+      display_x_dp   <= x_dp;
+    end else begin
+      update_counter <= update_counter + 1;
+    end
+  end
+end
+
+// use the top bits for digit selection so the visible multiplexing is slower
+assign led_activate = refresh_counter[19:18];
+//assign led_ghosting_cooldown = refresh_counter[11:7] == 5'b0 || refresh_counter[11:7] == 5'b11111;
+// compare a slower-running middle slice against `dim_val` for dimming
+assign led_dimming_active = refresh_counter[15:12] > dim_val;
+
+//Led Ghosting logic
+always_ff @(posedge clk or negedge rst_n) begin
+  if (!rst_n) begin
+    led_activate_d <= 2'b00;
+    ghost_cnt      <= 5'd0;
+  end else begin
+    led_activate_d <= led_activate;
+
+    if (led_activate_d != led_activate)
+      ghost_cnt <= 5'd16;          // blank for 16 clocks
+    else if (ghost_cnt != 0)
+      ghost_cnt <= ghost_cnt - 1;
+  end
+end
+
+assign led_ghosting_cooldown = (ghost_cnt != 0);
+
 
 // Active Anode control
 always_ff@(posedge clk or negedge rst_n)
@@ -122,23 +171,23 @@ begin
     begin
         if (led_activate == 0)
         begin
-            led_number <= x[15:12];
-            dp <= ~x_dp[3];
+          led_number <= display_x[15:12];
+          dp <= ~display_x_dp[3];
         end
         else if (led_activate == 1)
         begin
-            led_number <= x[11:8];
-            dp <= ~x_dp[2];
+          led_number <= display_x[11:8];
+          dp <= ~display_x_dp[2];
         end
         else if (led_activate == 2)
         begin
-            led_number <= x[7:4];
-            dp <= ~x_dp[1];
+          led_number <= display_x[7:4];
+          dp <= ~display_x_dp[1];
         end
         else
         begin
-            led_number <= x[3:0];
-            dp <= ~x_dp[0];
+          led_number <= display_x[3:0];
+          dp <= ~display_x_dp[0];
         end
     end
 end
