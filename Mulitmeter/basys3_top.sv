@@ -65,7 +65,6 @@ module basys3_top(
   output logic         dp      // O; Anode of decimal point
 );
 		
-
   import mm_pkg::*;
 
   // -------------------------------------------------------------------------
@@ -83,8 +82,8 @@ module basys3_top(
           
   // ADC SPI - Data
   logic        spi_adc_en;
-  logic [11:0] spi_adc_data;
-  logic        spi_adc_data_update;
+  (* MARK_DEBUG="TRUE" *) logic [11:0] spi_adc_data;
+  (* MARK_DEBUG="TRUE" *) logic        spi_adc_data_update;
     
   // Average
   logic [11:0] avg_fir_data;
@@ -94,9 +93,10 @@ module basys3_top(
   logic [11:0] avg_iir_data;
   logic        avg_iir_data_update;
   
+  
   // RMS
-  logic [11:0] rms_data;
-  logic        rms_data_update;
+  (* MARK_DEBUG="TRUE" *) logic [11:0] rms_data;
+  (* MARK_DEBUG="TRUE" *) logic        rms_data_update;
   
   // Result size:
   //   4 decimal digits 0000 --> 9999
@@ -107,7 +107,7 @@ module basys3_top(
   result_sel_t result_sel;  
   logic [11:0] result_dout             ; // Selected result 
   logic [15:0] result_dout_bcd         ; // Selected result as BCD 
-  logic        result_dout_update      ; // Selected result update
+  (* MARK_DEBUG="TRUE" *) logic        result_dout_update      ; // Selected result update
   
   logic [3:9]  dim_val;
   
@@ -117,12 +117,12 @@ module basys3_top(
   logic [(CHAR_NR*8)-1:0] char_array ;
   logic                   char_array_update;
  
-  logic                   uart_busy;
+  (* MARK_DEBUG="TRUE" *) logic uart_busy;
   
   // Testmux
-                          logic [15:0] test_mux_din  [3:0];
-  (* MARK_DEBUG="TRUE" *) logic [1:0]  test_mux_sel;
-  (* MARK_DEBUG="TRUE" *) logic [15:0] test_mux_out;
+  logic [15:0] test_mux_din  [3:0];
+  logic [1:0]  test_mux_sel;
+  logic [15:0] test_mux_out;
 
 
   // -------------------------------------------------------------------------
@@ -287,7 +287,7 @@ module basys3_top(
     endcase
   end
  
-  assign char_array = {char_array_v, 
+  (* MARK_DEBUG="TRUE" *) assign char_array = {char_array_v, 
     num2ascii(result_dout_bcd[15:12]), 
     ".",
     num2ascii(result_dout_bcd[11: 8]),
