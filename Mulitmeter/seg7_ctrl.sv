@@ -22,7 +22,7 @@
 `default_nettype wire
 module seg7_ctrl#(
   parameter int CLOCK_FREQ_HZ = 100_000_000, // system clock frequency
-  parameter int UPDATE_MS     = 300          // update interval in milliseconds
+  parameter int UPDATE_MS     = 200          // update interval in milliseconds
 ) (
   input  wire         rst_n      , // I  1; Asynchronous active low reset
   input  wire         clk        , // I  1; clock 100MHz assumed for correct times 
