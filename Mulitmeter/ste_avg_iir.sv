@@ -52,43 +52,42 @@ module ste_avg_iir #(
   // -------------------------------------------------------------------------
 //  logic [DATA_W-1:0] din_z;
   logic [DATA_W-1:0] dout_z;
-  logic [2*DATA_W-1:0] acc;
- 
+  logic [2*DATA_W-1:0] dina;
+  logic [2*DATA_W-1:0] doutb;
+  logic [2*DATA_W:0] acc;
  
   logic [5:0] FRAC = DATA_W - 1;
   
   logic [DATA_W-1:0] ONE = (1 << FRAC);
-  logic [DATA_W-1:0] a =  1000;
+  logic [DATA_W-1:0] a =  500;
   logic [DATA_W-1:0]  b = ONE - a;  
   
    
-  always_ff@(posedge clk or negedge rst_n)
-  begin
-    dout_update_o = 1'b0;
-    if (~rst_n)
+    always_ff@(posedge clk or negedge rst_n)
     begin
-        dout_o <= 0;
-        dout_z <= 0;
-        acc<=0;
+        if (~rst_n) dout_z <= 0;
+        else dout_z <= dout_o;
     end
-    else if (avg_clr_i) 
-        dout_o <= 0;
-    else
-    begin          
-        if  (avg_en_i)
+
+    always_comb
+    begin
+        dout_update_o = 1'b0;
+        
+        if (~rst_n) dout_o = 0;
+        else 
         begin
-            acc <= din_i * a + dout_z * b;
-            dout_o <= acc >> FRAC;
-            dout_update_o = 1'b1;
-        end
-        else
-            dout_o <= din_i;
+            if (avg_clr_i) dout_o = 0;
+            else if  (avg_en_i)
+                begin
+                    dina = din_i * a;
+                    doutb = dout_z * b;
+                    acc  =  dina + doutb;
+                    dout_o = acc >> FRAC;
+                    dout_update_o = 1'b1;
+                end
+                else  dout_o <= din_i;
+        end   
     end
-    dout_z <= dout_o;      
-  end
- 
-  //always dout_z        = dout_o;
-  //always dout_update_o = (dout_o != dout_z) ? 1:0;
  
   //assign dout_o         = '0;
   //assign dout_update_o  = '0;
