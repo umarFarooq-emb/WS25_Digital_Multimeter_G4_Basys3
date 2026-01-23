@@ -49,8 +49,9 @@ module ste_rms_top #(
   // -------------------------------------------------------------------------
   // Definition 
   // -------------------------------------------------------------------------
-  (* MARK_DEBUG="TRUE" *) logic [BUF_BIT_W-1:0][DATA_W-1:0] shift_reg;
+  (* MARK_DEBUG="TRUE" *) logic [255:0][DATA_W-1:0] shift_reg;
   (* MARK_DEBUG="TRUE" *) logic [2*DATA_W+BUF_BIT_W-1:0] mean_square, mean_square_intern;
+  logic [2*DATA_W+BUF_BIT_W-1:0] sum_of_squares;
   (* MARK_DEBUG="TRUE" *) logic intern_enable, busy;
   // -------------------------------------------------------------------------
   // Implementation
@@ -64,20 +65,15 @@ module ste_rms_top #(
         intern_enable <= 0;
         busy <= 0;
         shift_reg <= '0;
+        sum_of_squares <= '0;
     end
     else
     begin
         if (din_update_i && ~busy)
         begin
-            shift_reg <= {shift_reg[BUF_BIT_W-2:0], din_i};
-            mean_square <= (shift_reg[0]*shift_reg[0] + 
-                            shift_reg[1]*shift_reg[1] + 
-                            shift_reg[2]*shift_reg[2] + 
-                            shift_reg[3]*shift_reg[3] + 
-                            shift_reg[4]*shift_reg[4] + 
-                            shift_reg[5]*shift_reg[5] + 
-                            shift_reg[6]*shift_reg[6] + 
-                            din_i*din_i)/BUF_BIT_W;
+            shift_reg <= {shift_reg[254:0], din_i};
+            sum_of_squares <= sum_of_squares - shift_reg[255]*shift_reg[255] + din_i*din_i;
+            mean_square <= (sum_of_squares - shift_reg[255]*shift_reg[255] + din_i*din_i) >> 8;
         end
         
         if(mean_square == mean_square_intern)
